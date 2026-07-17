@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import './App.css';
 import backgroundPath from './assets/background.jpg';
+import memojiPath from './assets/memoji.png';
 
 function App() {
   const bgRef = useRef(null);
@@ -38,8 +39,11 @@ function App() {
 
     // Normalized coordinate calculation (-1 to 1 based on center)
     const handleMouseMove = (e) => {
-      state.mouseX = (e.clientX - windowHalfX) / windowHalfX;
-      state.mouseY = (e.clientY - windowHalfY) / windowHalfY;
+      // Only trigger parallax when user is near the top hero fold
+      if (window.scrollY < window.innerHeight) {
+        state.mouseX = (e.clientX - windowHalfX) / windowHalfX;
+        state.mouseY = (e.clientY - windowHalfY) / windowHalfY;
+      }
     };
 
     const handleMouseLeave = () => {
@@ -93,12 +97,17 @@ function App() {
     };
   }, []);
 
-  // Scroll Indicator Click Handler
+  // Scroll Indicator Click Handler (focuses directly to About Section)
   const handleScrollClick = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth'
-    });
+    const aboutSection = document.getElementById('about-section');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({
+        top: window.innerHeight,
+        behavior: 'smooth'
+      });
+    }
   };
 
   // Keyboard accessibility handler for scroll button (Enter / Space key)
@@ -111,13 +120,13 @@ function App() {
 
   return (
     <main id="main-content">
-      {/* Hero Section Container */}
+      {/* 1. Hero Section Container */}
       <section 
         id="hero-section" 
         className="hero-section" 
         aria-label="이채연 포트폴리오 메인 소개"
       >
-        {/* Parallax Background Layer (aria-hidden for screen reader noise reduction) */}
+        {/* Parallax Background Layer */}
         <div 
           ref={bgRef}
           id="hero-background-layer" 
@@ -160,6 +169,97 @@ function App() {
               <span className="wheel"></span>
             </span>
             <span className="scroll-text" aria-hidden="true">Scroll Down</span>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. About Me Section Container */}
+      <section 
+        id="about-section" 
+        className="about-section" 
+        aria-label="이채연 소개 및 핵심 약력"
+      >
+        {/* Display Title with Linear Gradient styling */}
+        <h2 className="about-title">ABOUT ME</h2>
+
+        <div className="about-content-grid">
+          {/* Left Column: Visual Profile Card */}
+          <div className="profile-visual-card">
+            <div className="memoji-wrapper">
+              <img 
+                src={memojiPath} 
+                alt="이채연 캐릭터 미모지 프로필 이미지" 
+                className="profile-memoji-img"
+              />
+            </div>
+            <h3 className="profile-name">
+              이채연 <span className="profile-name-en">LEE CHAEYEON</span>
+            </h3>
+          </div>
+
+          {/* Right Column: Detailed Philosophy & Story */}
+          <div className="profile-biography">
+            <p className="bio-lead-paragraph">
+              기획부터 구현까지 책임감 있게 조율하는 웹 퍼블리셔가 되겠습니다. 웹 접근성에 근거한<br />
+              마크업으로 소외되는 사람 없이 누구나 쉽고 편하게 사용할 수 있는 웹을 만들겠습니다.
+            </p>
+            <p className="bio-sub-paragraph">
+              평소 자주 이용하던 지역 도서관 앱의 단조롭고 불친절한 UX/UI를 보며, 모두가 이용하는 공공 서비스일수록 사용자의 입장을 더 면밀히 살펴야 한다는 깊은 문제의식을 느꼈습니다. 이는 제가 사용자 중심의 웹을 고민하게<br />된 첫 계기였습니다. '내가 만약 이 페이지를 만든다면 어떻게 바꿀까?'를 고민하던 중, 단순히 보기 좋은 디자인에 머무르지 않고 이를 사용성 높은 화면으로 구현해 내는 실무 역량이 웹 시장에서 얼마나 중요한지 깨달았습니다.
+            </p>
+            <p className="bio-sub-paragraph">
+              저는 이번 프로젝트에서, 변화하는 기술 트렌드를 수용해 AI를 활용한 가설 주도 설계 방식을 적용했습니다.<br />
+              가상의 사용자를 설정하고 발생 가능한 불편함과 예외 케이스를 AI로 미리 시뮬레이션함으로써 설계 오류를 획기적으로 줄이고 프로젝트를 안정적으로 완성할 수 있었습니다.
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom Details Grid: Education & Skills/Contact */}
+        <div className="about-details-table">
+          {/* Left Block: Education */}
+          <div className="details-col education-col">
+            <div className="details-divider" aria-hidden="true" />
+            <div className="details-col-body">
+              <h3 className="details-col-title">Education</h3>
+              <ul className="details-list">
+                <li className="details-item">
+                  <span className="item-date">2026. 07</span>
+                  <span className="item-value">
+                    AI 기반 UI/UX 디지털디자인 및 영상제작 실무자 양성 수료 
+                    <span className="item-institute"> - 엠비씨(MBC) 아카데미 컴퓨터교육센터</span>
+                  </span>
+                </li>
+                <li className="details-item">
+                  <span className="item-date">2025. 02</span>
+                  <span className="item-value">수원여자대학교 시각디자인과 졸업</span>
+                </li>
+                <li className="details-item">
+                  <span className="item-date">2020. 01</span>
+                  <span className="item-value">안화고등학교 졸업</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Right Block: Skills & Contact */}
+          <div className="details-col skills-contact-col">
+            <div className="details-divider" aria-hidden="true" />
+            <div className="details-col-body skills-contact-body">
+              {/* Skills Sub-section */}
+              <div className="details-group-row">
+                <h3 className="details-col-title">Skills</h3>
+                <p className="skills-content-text">
+                  Photoshop, Illustrator, Figma, Vibe Coding
+                </p>
+              </div>
+
+              {/* Email Contact Sub-section */}
+              <div className="details-group-row">
+                <h3 className="details-col-title">Email</h3>
+                <p className="contact-email-text">
+                  whgus118@gmail.com
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
