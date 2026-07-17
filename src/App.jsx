@@ -97,6 +97,7 @@ function App() {
     };
   }, []);
 
+
   // Scroll Indicator Click Handler (focuses directly to About Section)
   const handleScrollClick = () => {
     const aboutSection = document.getElementById('about-section');

@@ -9,6 +9,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    scroll-snap-align: start;
 }
 
 /* Background Layer (scaled for parallax safe zone) */
@@ -230,12 +231,14 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    padding: 140px 10% 120px 10%;
+    padding: 100px 10% 20px 10%;
     background: linear-gradient(to bottom, #181818 0%, #373a43 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 10;
+    height: 100vh;
+    scroll-snap-align: start;
 }
 
 .about-title {
@@ -244,7 +247,7 @@
     font-weight: 800; /* ExtraBold */
     letter-spacing: -0.02em;
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 56px;
     
     /* Text Gradient fill effect */
     background: linear-gradient(135deg, #cdcdcd 0%, #f4f6ff 100%);
@@ -256,13 +259,20 @@
 /* 2-Column Grid Layout */
 .about-content-grid {
     display: grid;
-    grid-template-columns: 320px 820px; /* 좌측 가로폭을 320px로 늘려 이름의 일렬 정렬 안전 공간 확보 */
-    gap: 80px; /* 기존처럼 여백을 80px로 널찍하게 환원 */
-    width: 100%;
-    max-width: 1200px;
-    justify-content: center; /* 남는 여백을 좌우로 고르게 분산하여 화면 가운데로 정렬 */
+    grid-template-columns: 320px 820px; /* 원래 너비 비율을 단단하게 유지 (텍스트 꺾임 방지) */
+    gap: 80px; 
+    
+    /* 기존 width: 100% 대신 max-content로 변경하여 내부 요소(320+80+820 = 1220px) 크기만큼만 딱 차지하게 수축 */
+    width: max-content; 
+    max-width: 100%;
+    
+    /* 화면 가로축 기준 정중앙으로 통째로 이동시키는 핵심 속성 */
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center; 
+    
     align-items: start;
-    margin-bottom: 100px;
+    margin-bottom: 64px;
 }
 
 /* Profile Card (Left) */
@@ -456,8 +466,15 @@
 
 /* 8. Additional Responsive Breakpoints for Grid Layouts */
 @media (max-width: 968px) {
+    .hero-section {
+        scroll-snap-align: none; /* 모바일 기기 터치 스냅 정렬 해제 */
+    }
+
     .about-section {
         padding: 80px 5% 80px 5%;
+        height: auto; /* 모바일 세로 1열 스택 시 하단 잘림 방지 및 자연스러운 스크롤 허용 */
+        min-height: 100vh;
+        scroll-snap-align: none; /* 모바일 기기 터치 스냅 정렬 해제 */
     }
     
     .about-content-grid {
