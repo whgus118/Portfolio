@@ -337,15 +337,21 @@
 /* Details Table (Education, Skills, Contact) */
 .about-details-table {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 32px;
+    grid-template-columns: max-content 1fr; 
+    gap: 80px; 
     width: 100%;
     max-width: 1200px;
+}
+
+.education-col {
+    width: 100%;
 }
 
 .details-col {
     display: flex;
     flex-direction: column;
+    width: fit-content; /* 내부 텍스트의 최대 너비에 맞춰 컬럼 가로폭을 수축 (구분선 맞춤용) */
+    justify-self: start; /* 그리드 셀의 강제 stretch(늘림) 방지 및 내용 기준 정밀 수축 */
 }
 
 .details-col-body {
@@ -369,7 +375,7 @@
 }
 
 .details-divider {
-    height: 2px; /* 두께를 1px 더 키워 2px로 적용 */
+    height: 2px; 
     background: rgba(255, 255, 255, 0.1);
     margin-bottom: 24px;
     width: 100%;
@@ -383,8 +389,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     position: relative;
-    top: -1px; /* 시각적 높이를 1px 위로 미세 조정 */
-    min-width: 135px; /* Education(9글자) 텍스트가 넉넉히 들어가는 너비로 통일 */
+    top: -1px; /* 시각적 높이를 1px 위로 미세 조정 복구 */
     flex-shrink: 0; /* 레이블 너비가 줄어들지 않도록 고정 */
 }
 
@@ -412,14 +417,14 @@
 }
 
 .item-value {
-    flex: 1;
     word-break: keep-all;
 }
 
 .item-institute {
     color: var(--color-text-muted);
     font-size: 0.9rem;
-    display: inline-block;
+    display: block; /* inline-block에서 block으로 변경하여 강제로 다음 줄에 배치 */
+    margin-top: 4px; /* 본문 문장과의 미세한 간격 확보 */
 }
 
 /* Skills & Email Groups */
