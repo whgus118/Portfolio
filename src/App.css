@@ -295,6 +295,7 @@
     color: var(--color-text-primary);
     line-height: 1.2;
     margin-top: auto; /* 미모지 이미지 하단 공간을 밀어내어 우측 본문 바닥 끝선과 수평 일치시킴 */
+    transform: translateY(-8px);
 }
 
 .profile-name-en {
