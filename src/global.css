@@ -1,0 +1,101 @@
+/* global.css - Design System Variables & Global Style Reset */
+
+/* 1. Web Fonts Load */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap");
+
+/* 2. Global Design Tokens (CSS Variables) */
+:root {
+    /* Fonts */
+    --font-primary: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-display: 'Rubik Doodle Shadow', cursive, sans-serif;
+
+    /* Color Palette */
+    --color-bg-main: #050508;          /* 우주 느낌의 어두운 다크 그레이/블랙 */
+    --color-bg-card: #181818;          /* 카드 수납 구조 등 단독 요소용 다크 그레이 */
+    --color-bg-glass: rgba(255, 255, 255, 0.02); /* 투명 유리 느낌의 오버레이 */
+
+    --color-text-primary: #ffffff;      /* 주 텍스트 (피그마 Text/White) */
+    --color-text-secondary: #fbfbfb;    /* 부 텍스트 및 기본 본문 (피그마 Off-White) */
+    --color-text-muted: #e9e9e9;        /* 비활성 텍스트 및 경계 (피그마 Light Gray) */
+    --color-accent: #c4b5fd;            /* 하이라이트/네온 퍼플 액센트 */
+
+    --color-border-glass: rgba(255, 255, 255, 0.05); /* 투명 카드 보더 */
+
+    /* Border Radius */
+    --radius-lg: 24px;                  /* 메인 카드 및 큰 글래스 컨테이너 */
+    --radius-md: 12px;                  /* 버튼 및 콤보 박스 등 일반 요소 */
+    --radius-pill: 9999px;              /* 마우스 지시계 및 칩/태그 뱃지 */
+
+    /* Shadows & Effects */
+    --shadow-glass: 0 40px 100px rgba(0, 0, 0, 0.6); /* 넓고 깊은 그림자 */
+    --glow-accent: 0 0 15px rgba(196, 181, 253, 0.6); /* 하이라이트 글자 네온 글로우 */
+
+    /* Transitions */
+    --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-micro: all 0.2s ease;
+}
+
+/* 3. Global Reset & Base Style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* 히어로 섹션은 100vh 스크롤 고정 */
+    background-color: var(--color-bg-main);
+    color: var(--color-text-secondary);
+    font-family: var(--font-primary);
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+/* Skip Navigation Link for A11y */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 20px;
+    background: var(--color-accent);
+    color: #050508;
+    padding: 8px 16px;
+    z-index: 1000;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 20px;
+}
+
+/* 4. Accessibility (A11y) Screen Reader Only Style */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Keyboard Navigation Visual Focus Rings */
+a:focus-visible,
+[tabindex="0"]:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+

@@ -1,0 +1,226 @@
+/* App.css - Portfolio Component Specific Styling */
+
+/* 1. Full Screen Layout Wrapper */
+.hero-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Background Layer (scaled for parallax safe zone) */
+.hero-bg {
+    position: absolute;
+    top: -3%;
+    left: -3%;
+    width: 106%;
+    height: 106%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    transform: scale(1.03); /* 안전마진을 1.03배로 축소하여 원본 크기 최대로 유지 */
+}
+
+/* 2. Flat Minimal Content Wrapper (No Glassmorphism Card Border) */
+.hero-content-wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 90%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    /* 3D Transform settings */
+    transform-style: preserve-3d;
+    transform: translateY(30px);
+    opacity: 0;
+    animation: heroFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 3. Typography Styles */
+.hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 9.5vw, 10.5rem); /* 반응형 유동 폰트 (Figma 168px 기준 대응) */
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    color: var(--color-text-primary);
+    margin-bottom: 30px;
+    user-select: none;
+    
+    /* Premium light reflection */
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.2),
+        0 0 20px rgba(196, 181, 253, 0.15);
+    
+    /* Animation scale-up intro */
+    opacity: 0;
+    transform: scale(0.95) translate3d(0, 0, 30px); /* 3D Depth */
+    animation: titleReveal 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+.hero-desc {
+    font-family: var(--font-primary);
+    font-size: clamp(1.1rem, 2vw, 2rem); /* 반응형 폰트 (Figma 32px 기준 대응) */
+    font-weight: 300; /* Figma Light(300) 사양 */
+    line-height: 1.56; /* Figma 48px 줄높이에 맞춘 비율 */
+    color: var(--color-text-secondary);
+    max-width: 900px;
+    margin-bottom: 50px;
+    word-break: keep-all;
+    transform: translate3d(0, 0, 20px); /* 3D Depth */
+    
+    /* Animation fade-up intro */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: descReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+}
+
+/* Figma 600 SemiBold Override for Highlight Name */
+.highlight-name {
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+    transition: var(--transition-micro);
+}
+
+.highlight-name::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-text-primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.highlight-name:hover {
+    cursor: pointer;
+}
+
+.highlight-name:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* 4. Scroll Indicator Interactive components */
+.scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transform: translate3d(0, 0, 10px); /* 3D Depth */
+    opacity: 0;
+    animation: descReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+}
+
+.mouse-icon {
+    width: 26px;
+    height: 44px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: var(--radius-md); /* figma 기준 모서리 둥글기 */
+    position: relative;
+    display: block;
+    transition: var(--transition-micro);
+}
+
+.mouse-icon .wheel {
+    width: 4px;
+    height: 8px;
+    background-color: var(--color-accent);
+    border-radius: var(--radius-pill);
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollWheelMove 1.6s ease-in-out infinite;
+}
+
+.scroll-text {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+    transition: var(--transition-micro);
+}
+
+/* Scroll indicator hovers */
+.scroll-indicator:hover .mouse-icon {
+    border-color: var(--color-text-primary);
+    transform: translateY(3px);
+}
+
+.scroll-indicator:hover .scroll-text {
+    color: var(--color-text-primary);
+}
+
+/* 5. Keyframes CSS Animations */
+@keyframes heroFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes titleReveal {
+    to {
+        opacity: 1;
+        transform: scale(1) translate3d(0, 0, 30px);
+    }
+}
+
+@keyframes descReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0) translate3d(0, 0, 20px);
+    }
+}
+
+@keyframes scrollWheelMove {
+    0% {
+        top: 8px;
+        opacity: 1;
+    }
+    50% {
+        top: 22px;
+        opacity: 0;
+    }
+    100% {
+        top: 8px;
+        opacity: 1;
+    }
+}
+
+/* 6. Responsive breakpoints */
+@media (max-width: 768px) {
+    .hero-content-wrapper {
+        width: 95%;
+        padding: 45px 20px;
+        border-radius: 16px;
+    }
+    
+    .hero-title {
+        margin-bottom: 20px;
+    }
+
+    .hero-desc {
+        margin-bottom: 35px;
+    }
+    
+    .desktop-only {
+        display: none;
+    }
+}
