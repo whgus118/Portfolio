@@ -2,6 +2,11 @@ import { useEffect, useRef } from 'react';
 import './App.css';
 import backgroundPath from './assets/background.jpg';
 import memojiPath from './assets/memoji.png';
+import workSuwonPath from './assets/work_suwon.png';
+import workLevitePath from './assets/work_levite.png';
+import workMoodonPath from './assets/work_moodon.png';
+import contactGithubPath from './assets/contact_github.png';
+import contactCursorPath from './assets/contact_cursor.png';
 
 function App() {
   const bgRef = useRef(null);
@@ -287,6 +292,105 @@ function App() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Works Section Container */}
+      <section 
+        id="works-section" 
+        className="works-section scroll-reveal" 
+        aria-label="이채연 주요 작업 및 프로젝트 목록"
+      >
+        <h2 className="works-title reveal-item" style={{ '--reveal-delay': '0.08s' }}>WORKS</h2>
+
+        <div className="works-cards-grid">
+          {/* Card 1: 수원시립미술관 */}
+          <div className="reveal-item" style={{ '--reveal-delay': '0.23s' }}>
+            <div className="work-card">
+              <h3 className="work-card-title">수원시립미술관</h3>
+              <div className="work-card-img-wrapper">
+                <img 
+                  src={workSuwonPath} 
+                  alt="수원시립미술관 프로젝트 3D 그래픽" 
+                  className="work-card-img" 
+                />
+              </div>
+              <div className="work-card-info">
+                <span className="work-card-tag">UX/UI</span>
+                <p className="work-card-desc">웹 접근성 개선</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: 하이엔드 조명 레비테 */}
+          <div className="reveal-item" style={{ '--reveal-delay': '0.38s' }}>
+            <div className="work-card">
+              <h3 className="work-card-title">하이엔드 조명 레비테</h3>
+              <div className="work-card-img-wrapper">
+                <img 
+                  src={workLevitePath} 
+                  alt="하이엔드 조명 레비테 프로젝트 3D 그래픽" 
+                  className="work-card-img" 
+                />
+              </div>
+              <div className="work-card-info">
+                <span className="work-card-tag">마이크로 인터랙션</span>
+                <p className="work-card-desc">브랜드 홍보 랜딩 페이지</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: 무드온 AI 대시보드 */}
+          <div className="reveal-item" style={{ '--reveal-delay': '0.53s' }}>
+            <div className="work-card">
+              <h3 className="work-card-title">무드온 AI 대시보드</h3>
+              <div className="work-card-img-wrapper">
+                <img 
+                  src={workMoodonPath} 
+                  alt="무드온 AI 대시보드 프로젝트 3D 그래픽" 
+                  className="work-card-img" 
+                />
+              </div>
+              <div className="work-card-info">
+                <span className="work-card-tag">Open API 연동</span>
+                <p className="work-card-desc">사용자 맞춤 페이지</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Contact Section */}
+      <section
+        className="contact-section scroll-reveal"
+        aria-label="이채연 연락처 및 GitHub 링크"
+      >
+        <div className="contact-inner">
+          <h2 className="contact-title reveal-item" style={{ '--reveal-delay': '0.08s' }}>CONTACT</h2>
+          <p className="contact-subtitle reveal-item" style={{ '--reveal-delay': '0.2s' }}>
+            저에게 궁금한 점이 있으시다면 언제든 연락해 주세요 :)<br />
+            확인하는 대로 빠르게 회신드리겠습니다.
+          </p>
+
+          <div className="contact-links reveal-item" style={{ '--reveal-delay': '0.35s' }}>
+            <a
+              href="https://github.com/whgus118"
+              className="contact-github-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="이채연 GitHub 프로필 열기"
+            >
+              <img src={contactGithubPath} alt="GitHub 아이콘" className="contact-github-icon" />
+              <span className="contact-github-label">GitHub</span>
+            </a>
+          </div>
+
+          <div className="contact-email-block reveal-item" style={{ '--reveal-delay': '0.5s' }}>
+            <img src={contactCursorPath} alt="" className="contact-cursor-icon" aria-hidden="true" />
+            <a href="mailto:whgus118@gmail.com" className="contact-email-link">
+              whgus118@gmail.com
+            </a>
           </div>
         </div>
       </section>
