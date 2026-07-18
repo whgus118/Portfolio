@@ -57,7 +57,7 @@ body {
     overflow-y: scroll; /* body가 스크롤 컨테이너 역할 */
     scroll-snap-type: y mandatory; /* 섹션 단위 스냅 */
     scroll-behavior: smooth; /* 부드러운 전환 */
-    background-color: var(--color-bg-main);
+    background-color: #373a43; /* About Me 끝색 = Works 시작색: 섹션 경계 스크롤 스냅 시 검정 배경 노출 방지 */
     color: var(--color-text-secondary);
     font-family: var(--font-primary);
 }

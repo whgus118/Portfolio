@@ -703,6 +703,17 @@
     z-index: 10;
     scroll-snap-align: start;
     overflow: hidden;
+
+    /* ------------------------------------------ */
+    /* [설정] 엔터키 글래스모피즘 및 색상 커스텀 변수 정의 */
+    /* ------------------------------------------ */
+    --contact-enter-bg-color: #ffffff;           /* 엔터키 유리컵 채우기 기본 색상 */
+    --contact-enter-bg-opacity-start: 0.1;       /* 엔터키 유리컵 시작 투명도 (0 ~ 1) */
+    --contact-enter-bg-opacity-end: 0.05;        /* 엔터키 유리컵 끝 투명도 (0 ~ 1) */
+    --contact-enter-stroke-color: rgba(255, 255, 255, 0.15); /* 엔터키 테두리선 색상 */
+    --contact-enter-arrow-color: #CDCDCD;        /* 엔터키 리턴 화살표 색상 */
+    --contact-enter-text-color: #ffffff;         /* 엔터키 내부 GitHub 글자 색상 */
+    --contact-enter-blur: 12.5px;                /* 엔터키 글래스모피즘 블러 강도 */
 }
 
 /* 배경 미세 텍스처 효과 */
@@ -750,91 +761,115 @@
     word-break: keep-all;
 }
 
-/* GitHub 버튼 */
-.contact-links {
-    display: flex;
-    justify-content: center;
-}
-
 .contact-github-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    padding: 40px 56px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 32px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    position: relative;
+    left: 7px; /* 눈대중 정중앙 미세조정 확정 위치 */
+    width: clamp(152px, 16.7vw, 276px);
+    aspect-ratio: 364 / 304;
+    background: none;
+    border: none;
     text-decoration: none;
-    transition: transform 0.2s ease-out,
-                background 0.2s ease-out,
-                border-color 0.2s ease-out,
-                box-shadow 0.2s ease-out;
     cursor: pointer;
-}
-
-.contact-github-btn:hover {
-    transform: scale(1.04);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 100%);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 255, 255, 0.05);
-}
-
-.contact-github-icon {
-    width: clamp(80px, 10vw, 120px);
-    height: clamp(80px, 10vw, 120px);
-    object-fit: contain;
     display: block;
 }
 
-.contact-github-label {
-    font-family: var(--font-primary);
-    font-size: clamp(1rem, 1.6vw, 1.4rem);
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 0.02em;
+.contact-github-content {
+    position: relative;
+    top: 8px;
+    width: 100%;
+    height: 100%;
+    transform: translate3d(0, 0, 0); /* GPU 레이어로 고정하여 호버 종료 시 픽셀 정렬 밀림 현상 방지 */
+    will-change: transform;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-github-btn:hover .contact-github-content {
+    transform: scale(1.06) translate3d(0, 0, 0);
+}
+
+.github-logo-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 61.8%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    z-index: 1;
+}
+
+.github-enter-key-wrapper {
+    position: absolute;
+    top: 26%;
+    left: calc(38.2% + 2px); /* 오른쪽으로 정밀하게 2px 이동 (Figma 대조 미세 조정) */
+    width: 61.8%;
+    aspect-ratio: 1 / 1;
+    z-index: 2; /* github-logo-img보다 위로 올라오게 설정 */
+}
+
+.github-enter-key-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    overflow: visible; /* 그림자가 잘리지 않도록 설정 */
 }
 
 /* 이메일 블록 */
 .contact-email-block {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 14px;
-    margin-top: 8px;
+    margin-top: 32px;
 }
 
 .contact-cursor-icon {
-    width: clamp(28px, 3vw, 40px);
+    position: absolute;
+    top: 79%; /* 아래로 약 2px 정도 조정 (78% -> 79% 조정) */
+    left: 24.9%; /* 엔터키의 내부 가로 비율 정밀 위치 (Figma x:983 vs 927 대조) */
+    width: 24%; /* 엔터키 너비(225px) 대비 마우스 크기(54px)의 정확한 비율 */
     height: auto;
     object-fit: contain;
     display: block;
-    flex-shrink: 0;
+    pointer-events: none; /* 클릭 이벤트 방해 방지 */
+    z-index: 3;
 }
 
 .contact-email-link {
     font-family: var(--font-primary);
-    font-size: clamp(1.1rem, 2.2vw, 2rem);
+    font-size: clamp(1.4rem, 2.8vw, 40px); /* 데스크톱 기준 40px 최대 크기로 상향 조정 */
     font-weight: 700;
     color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     letter-spacing: -0.01em;
-    transition: color 0.2s ease-out, opacity 0.2s ease-out;
+    position: relative;
+    display: inline-block;
 }
 
-.contact-email-link:hover {
-    color: #ffffff;
-    opacity: 0.75;
+.contact-email-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; /* 텍스트 크기가 크므로 밑줄 간격 확보 */
+    left: 0;
+    width: 100%;
+    height: 1px; /* highlight-name 밑줄 두께와 동일한 1px 지정 */
+    background: rgba(255, 255, 255, 0.9); /* 글자 색상과 매칭 */
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-email-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 /* 모바일 반응형 */
 @media (max-width: 768px) {
-    .contact-github-btn {
-        padding: 32px 40px;
-    }
-
     .contact-email-link {
-        font-size: clamp(0.9rem, 4vw, 1.2rem);
+        font-size: clamp(1.1rem, 5vw, 24px); /* 모바일에서도 시인성을 위해 크기 상향 조정 */
     }
 }
