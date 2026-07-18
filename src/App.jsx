@@ -97,6 +97,32 @@ function App() {
     };
   }, []);
 
+  // Scroll reveal animation for any sections with the 'scroll-reveal' class
+  useEffect(() => {
+    const revealSections = document.querySelectorAll('.scroll-reveal');
+    if (revealSections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15, // Trigger when 15% of the section is visible
+      }
+    );
+
+    revealSections.forEach((section) => observer.observe(section));
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
 
   // Scroll Indicator Click Handler (focuses directly to About Section)
   const handleScrollClick = () => {
@@ -177,15 +203,15 @@ function App() {
       {/* 2. About Me Section Container */}
       <section 
         id="about-section" 
-        className="about-section" 
+        className="about-section scroll-reveal" 
         aria-label="이채연 소개 및 핵심 약력"
       >
         {/* Display Title with Linear Gradient styling */}
-        <h2 className="about-title">ABOUT ME</h2>
+        <h2 className="about-title reveal-item" style={{ '--reveal-delay': '0.08s' }}>ABOUT ME</h2>
 
         <div className="about-content-grid">
           {/* Left Column: Visual Profile Card */}
-          <div className="profile-visual-card">
+          <div className="profile-visual-card reveal-item" style={{ '--reveal-delay': '0.23s' }}>
             <div className="memoji-wrapper">
               <img 
                 src={memojiPath} 
@@ -199,7 +225,7 @@ function App() {
           </div>
 
           {/* Right Column: Detailed Philosophy & Story */}
-          <div className="profile-biography">
+          <div className="profile-biography reveal-item" style={{ '--reveal-delay': '0.38s' }}>
             <p className="bio-lead-paragraph">
               기획부터 구현까지 책임감 있게 조율하는 웹 퍼블리셔가 되겠습니다. 웹 접근성에 근거한<br />
               마크업으로 소외되는 사람 없이 누구나 쉽고 편하게 사용할 수 있는 웹을 만들겠습니다.
@@ -215,7 +241,7 @@ function App() {
         </div>
 
         {/* Bottom Details Grid: Education & Skills/Contact */}
-        <div className="about-details-table">
+        <div className="about-details-table reveal-item" style={{ '--reveal-delay': '0.53s' }}>
           {/* Left Block: Education */}
           <div className="details-col education-col">
             <div className="details-divider" aria-hidden="true" />

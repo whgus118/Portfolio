@@ -231,7 +231,7 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    padding: 100px 10% 20px 10%;
+    padding: 110px 10% 20px 10%;
     background: linear-gradient(to bottom, #181818 0%, #373a43 100%);
     display: flex;
     flex-direction: column;
@@ -239,6 +239,21 @@
     z-index: 10;
     height: 100vh;
     scroll-snap-align: start;
+}
+
+/* Reusable Scroll Reveal (Fade-in & Slide-up) System */
+.scroll-reveal .reveal-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0s);
+    will-change: opacity, transform;
+}
+
+.scroll-reveal.visible .reveal-item {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .about-title {
@@ -402,6 +417,7 @@
     position: relative;
     top: -1px; /* 시각적 높이를 1px 위로 미세 조정 복구 */
     flex-shrink: 0; /* 레이블 너비가 줄어들지 않도록 고정 */
+    min-width: 110px;
 }
 
 .details-list {
@@ -441,6 +457,12 @@
 /* Skills & Email Groups */
 .details-group {
     margin-bottom: 40px;
+}
+
+.skills-contact-body .details-group-row .details-col-title {
+    width: 90px;
+    min-width: 90px;
+    flex-shrink: 0;
 }
 
 .details-group:last-child {
