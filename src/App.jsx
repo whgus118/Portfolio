@@ -19,8 +19,10 @@ const CONTACT_CONFIG = {
   cursorIcon: contactCursorPath,              // 커서 마우스 포인터 이미지 경로
 };
 
-function App() {
-  const [activePage, setActivePage] = useState(null); // null | 'suwon' | 'levite' | 'moodon'
+// ==========================================
+// MainPage 컴포넌트 (메인 포트폴리오 페이지)
+// ==========================================
+function MainPage({ onNavigate }) {
   const bgRef = useRef(null);
   const cardRef = useRef(null);
 
@@ -40,9 +42,9 @@ function App() {
     const maxCardRotate = 4;   // Max rotation angle for 3D card perspective tilt (degrees)
 
     // Device performance guard (skip mouse track on mobile touch screens)
-    const isTouchDevice = 
-      'ontouchstart' in window || 
-      navigator.maxTouchPoints > 0 || 
+    const isTouchDevice =
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0 ||
       navigator.msMaxTouchPoints > 0;
 
     // Track half dimensions for normalization
@@ -96,7 +98,7 @@ function App() {
       window.addEventListener('resize', handleResize);
       window.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseleave', handleMouseLeave);
-      
+
       // Start loop
       state.animationFrameId = requestAnimationFrame(updatePhysics);
     }
@@ -117,7 +119,7 @@ function App() {
   // Scroll reveal animation for any sections with the 'scroll-reveal' class
   useEffect(() => {
     let observer;
-    
+
     // 레이아웃이 끝난 후 스크롤 상태를 측정하기 위해 미세한 지연(150ms) 추가
     const timer = setTimeout(() => {
       const revealSections = document.querySelectorAll('.scroll-reveal');
@@ -151,10 +153,6 @@ function App() {
   }, []);
 
 
-  // 프로젝트 상세 페이지 이동 핸들러
-  if (activePage === 'suwon') {
-    return <SuwonPage onBack={() => setActivePage(null)} />;
-  }
 
   // Scroll Indicator Click Handler (focuses directly to About Section)
   const handleScrollClick = () => {
@@ -180,24 +178,24 @@ function App() {
   return (
     <main id="main-content">
       {/* 1. Hero Section Container */}
-      <section 
-        id="hero-section" 
-        className="hero-section" 
+      <section
+        id="hero-section"
+        className="hero-section"
         aria-label="이채연 포트폴리오 메인 소개"
       >
         {/* Parallax Background Layer */}
-        <div 
+        <div
           ref={bgRef}
-          id="hero-background-layer" 
-          className="hero-bg" 
+          id="hero-background-layer"
+          className="hero-bg"
           aria-hidden="true"
           style={{ backgroundImage: `url(${backgroundPath})` }}
         />
-        
+
         {/* Flat content container */}
-        <div 
+        <div
           ref={cardRef}
-          id="hero-content" 
+          id="hero-content"
           className="hero-content-wrapper"
         >
           <header className="hero-header">
@@ -207,17 +205,17 @@ function App() {
               <span className="sr-only">이채연 웹 퍼블리셔 포트폴리오 메인 화면</span>
             </h1>
           </header>
-          
+
           {/* Description text from Figma */}
           <p id="hero-description-text" className="hero-desc">
             웹 접근성과 시각적 피드백을 중심으로, 누구나 막힘없이 사용할 수 있는<br className="desktop-only" />
             인터랙티브 웹을 구현하는 웹 퍼블리셔 <strong id="highlighted-name" className="highlight-name">이채연</strong>입니다.
           </p>
-          
+
           {/* Keyboard navigable & Screen reader readable scroll button */}
-          <div 
-            className="scroll-indicator" 
-            id="scroll-indicator" 
+          <div
+            className="scroll-indicator"
+            id="scroll-indicator"
             role="button"
             tabIndex={0}
             aria-label="하단 소개글 본문 콘텐츠로 이동"
@@ -233,9 +231,9 @@ function App() {
       </section>
 
       {/* 2. About Me Section Container */}
-      <section 
-        id="about-section" 
-        className="about-section scroll-reveal" 
+      <section
+        id="about-section"
+        className="about-section scroll-reveal"
         aria-label="이채연 소개 및 핵심 약력"
       >
         {/* Display Title with Linear Gradient styling */}
@@ -245,9 +243,9 @@ function App() {
           {/* Left Column: Visual Profile Card */}
           <div className="profile-visual-card reveal-item" style={{ '--reveal-delay': '0.23s' }}>
             <div className="memoji-wrapper">
-              <img 
-                src={memojiPath} 
-                alt="이채연 캐릭터 미모지 프로필 이미지" 
+              <img
+                src={memojiPath}
+                alt="이채연 캐릭터 미모지 프로필 이미지"
                 className="profile-memoji-img"
               />
             </div>
@@ -283,7 +281,7 @@ function App() {
                 <li className="details-item">
                   <span className="item-date">2026. 07</span>
                   <span className="item-value">
-                    AI 기반 UI/UX 디지털디자인 및 영상제작 실무자 양성 수료 
+                    AI 기반 UI/UX 디지털디자인 및 영상제작 실무자 양성 수료
                     <span className="item-institute"> - 엠비씨(MBC) 아카데미 컴퓨터교육센터</span>
                   </span>
                 </li>
@@ -324,9 +322,9 @@ function App() {
       </section>
 
       {/* 3. Works Section Container */}
-      <section 
-        id="works-section" 
-        className="works-section scroll-reveal" 
+      <section
+        id="works-section"
+        className="works-section scroll-reveal"
         aria-label="이채연 주요 작업 및 프로젝트 목록"
       >
         <h2 className="works-title reveal-item" style={{ '--reveal-delay': '0.08s' }}>WORKS</h2>
@@ -334,13 +332,13 @@ function App() {
         <div className="works-cards-grid">
           {/* Card 1: 수원시립미술관 */}
           <div className="reveal-item" style={{ '--reveal-delay': '0.23s' }}>
-            <div className="work-card" onClick={() => setActivePage('suwon')} style={{ cursor: 'pointer' }}>
+            <div className="work-card" onClick={() => onNavigate('suwon')} style={{ cursor: 'pointer' }}>
               <h3 className="work-card-title">수원시립미술관</h3>
               <div className="work-card-img-wrapper">
-                <img 
-                  src={workSuwonPath} 
-                  alt="수원시립미술관 프로젝트 3D 그래픽" 
-                  className="work-card-img" 
+                <img
+                  src={workSuwonPath}
+                  alt="수원시립미술관 프로젝트 3D 그래픽"
+                  className="work-card-img"
                 />
               </div>
               <div className="work-card-info">
@@ -355,10 +353,10 @@ function App() {
             <div className="work-card">
               <h3 className="work-card-title">하이엔드 조명 레비테</h3>
               <div className="work-card-img-wrapper">
-                <img 
-                  src={workLevitePath} 
-                  alt="하이엔드 조명 레비테 프로젝트 3D 그래픽" 
-                  className="work-card-img" 
+                <img
+                  src={workLevitePath}
+                  alt="하이엔드 조명 레비테 프로젝트 3D 그래픽"
+                  className="work-card-img"
                 />
               </div>
               <div className="work-card-info">
@@ -373,10 +371,10 @@ function App() {
             <div className="work-card">
               <h3 className="work-card-title">무드온 AI 대시보드</h3>
               <div className="work-card-img-wrapper">
-                <img 
-                  src={workMoodonPath} 
-                  alt="무드온 AI 대시보드 프로젝트 3D 그래픽" 
-                  className="work-card-img" 
+                <img
+                  src={workMoodonPath}
+                  alt="무드온 AI 대시보드 프로젝트 3D 그래픽"
+                  className="work-card-img"
                 />
               </div>
               <div className="work-card-info">
@@ -417,9 +415,9 @@ function App() {
                         <div xmlns="http://www.w3.org/1999/xhtml" style={{ backdropFilter: 'blur(var(--contact-enter-blur, 12.5px))', WebkitBackdropFilter: 'blur(var(--contact-enter-blur, 12.5px))', clipPath: 'url(#bgblur_1_639_1821_clip_path)', height: '100%', width: '100%' }}></div>
                       </foreignObject>
                       <g filter="url(#filter0_d_639_1821)" data-figma-bg-blur-radius="25">
-                        <path 
-                          d="M192.741 207.167C200.708 207.167 207.167 200.708 207.167 192.741V33.259C207.167 25.292 200.708 18.8335 192.741 18.8335H127.426C119.459 18.8335 113 25.292 113 33.259V79.7413C113 87.7083 106.542 94.1668 98.5745 94.1668H33.2589C25.2919 94.1668 18.8334 100.625 18.8334 108.592V192.741C18.8334 200.708 25.2919 207.167 33.2589 207.167H192.741Z" 
-                          fill="url(#paint0_linear_639_1821)" 
+                        <path
+                          d="M192.741 207.167C200.708 207.167 207.167 200.708 207.167 192.741V33.259C207.167 25.292 200.708 18.8335 192.741 18.8335H127.426C119.459 18.8335 113 25.292 113 33.259V79.7413C113 87.7083 106.542 94.1668 98.5745 94.1668H33.2589C25.2919 94.1668 18.8334 100.625 18.8334 108.592V192.741C18.8334 200.708 25.2919 207.167 33.2589 207.167H192.741Z"
+                          fill="url(#paint0_linear_639_1821)"
                           stroke="var(--contact-enter-stroke-color, rgba(255, 255, 255, 0.15))"
                           strokeWidth="1.5"
                           shapeRendering="crispEdges"
@@ -469,6 +467,34 @@ function App() {
         </div>
       </section>
     </main>
+  );
+}
+
+// ==========================================
+// App 컴포넌트 (라우터 역할)
+// ==========================================
+function App() {
+  const [activePage, setActivePage] = useState(null); // null | 'suwon' | 'levite' | 'moodon'
+
+  // 상세 페이지 활성화 시 뒷배경(메인)의 스크롤을 홀드하여 스냅 및 스크롤 고정
+  useEffect(() => {
+    if (activePage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [activePage]);
+
+  return (
+    <>
+      <MainPage onNavigate={setActivePage} />
+      {activePage === 'suwon' && (
+        <SuwonPage onBack={() => setActivePage(null)} />
+      )}
+    </>
   );
 }
 

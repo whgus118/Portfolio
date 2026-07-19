@@ -1,5 +1,16 @@
 /* App.css - Portfolio Component Specific Styling */
 
+#main-content {
+    width: 100%;
+    background: linear-gradient(to bottom, 
+        #050508 0%, 
+        #181818 25%, 
+        #373a43 50%, 
+        #050508 75%, 
+        #161620 100%
+    );
+}
+
 /* 1. Full Screen Layout Wrapper */
 .hero-section {
     position: relative;
@@ -166,6 +177,7 @@
 
 .scroll-indicator:hover .scroll-text {
     color: var(--color-text-primary);
+    transform: translateY(3px);
 }
 
 /* 5. Keyframes CSS Animations */
@@ -231,11 +243,12 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    padding: 110px 10% 20px 10%;
-    background: linear-gradient(to bottom, #181818 0%, #373a43 100%);
+    padding: 40px 10%;
+    background: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* F11 전체 화면 대응 및 시각적 중앙 정렬 균형 맞춤 */
     z-index: 10;
     height: 100vh;
     scroll-snap-align: start;
@@ -497,8 +510,8 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    padding: 100px 5% 40px 5%;
-    background: linear-gradient(to bottom, #373a43 0%, #050508 100%); /* 이어서 흐르는 자연스러운 밤하늘 테마 */
+    padding: 89px 5% 51px 5%; /* padding 비대칭 조절을 통해 콘텐츠 중앙 위치를 위로 2px 더 이동 (총 11px) */
+    background: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -695,7 +708,7 @@
     height: 100vh;
     min-height: 100vh;
     padding: 0;
-    background: linear-gradient(to bottom, #050508 0%, #0e0e16 70%, #161620 100%);
+    background: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
