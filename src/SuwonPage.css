@@ -152,6 +152,7 @@
 .suwon-cover-right {
     flex: 1;
     position: relative;
+    left: -12px; /* 전체 영역을 왼쪽으로 12px 이동 */
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -181,17 +182,17 @@
 
 /* 큰 파란 도형 — 우상단 */
 .suwon-deco-img-1 {
-    width: 85%; /* 피그마 실측 비율 반영 (아이폰 대비 약 1.27배) */
-    top: -8%;
-    right: -10%;
+    width: 40%;
+    top: calc(-8% + 222px);
+    right: calc(-10% + 92px);
     z-index: 2;
 }
 
 /* 작은 파란 도형 — 우하단 */
 .suwon-deco-img-2 {
-    width: 60%; /* 피그마 실측 비율 반영 (아이폰 대비 약 0.9배) */
-    bottom: 2%;
-    right: 46%; /* 메인 화면 기준 왼쪽에 밀착하도록 조정 */
+    width: 28.5%;
+    bottom: calc(2% + 48px);
+    right: calc(46% + 111px); /* 메인 화면 기준 왼쪽에 밀착하도록 조정 */
     z-index: 2;
 }
 
