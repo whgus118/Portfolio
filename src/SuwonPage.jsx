@@ -50,26 +50,28 @@ function SuwonPage({ onBack }) {
 
         {/* 오른쪽 모형 이미지 영역 */}
         <div className="suwon-cover-right">
-          {/* 파란 장식 도형 1 (큰 것, 우상단) */}
-          <img
-            src={`${BASE}details/suwon_sec2.png`}
-            alt=""
-            className="suwon-deco-img suwon-deco-img-1"
-            aria-hidden="true"
-          />
-          {/* 파란 장식 도형 2 (작은 것, 하단) */}
-          <img
-            src={`${BASE}details/suwon_sec3.png`}
-            alt=""
-            className="suwon-deco-img suwon-deco-img-2"
-            aria-hidden="true"
-          />
-          {/* iPhone 목업 */}
-          <img
-            src={`${BASE}details/suwon_cover_right.png`}
-            alt="수원시립미술관 프로젝트 화면 목업"
-            className="suwon-cover-img"
-          />
+          <div className="suwon-mockup-wrapper">
+            {/* 파란 장식 도형 1 (큰 것, 우상단) */}
+            <img
+              src={`${BASE}details/suwon_sec2.png`}
+              alt=""
+              className="suwon-deco-img suwon-deco-img-1"
+              aria-hidden="true"
+            />
+            {/* 파란 장식 도형 2 (작은 것, 하단) */}
+            <img
+              src={`${BASE}details/suwon_sec3.png`}
+              alt=""
+              className="suwon-deco-img suwon-deco-img-2"
+              aria-hidden="true"
+            />
+            {/* iPhone 목업 */}
+            <img
+              src={`${BASE}details/suwon_cover_right.png`}
+              alt="수원시립미술관 프로젝트 화면 목업"
+              className="suwon-cover-img"
+            />
+          </div>
         </div>
       </section>
     </div>
