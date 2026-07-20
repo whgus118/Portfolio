@@ -1,8 +1,10 @@
 import './SuwonPage.css';
 import contactCursor from './assets/contact_cursor.png';
 import notionLogo from './assets/notion_logo.svg';
-
-const BASE = import.meta.env.BASE_URL;
+import suwonSec2 from './assets/suwon_sec2.png';
+import suwonSec3 from './assets/suwon_sec3.png';
+import suwonCoverRight from './assets/suwon_cover_right.png';
+import suwonVideo from './assets/suwon_01.mp4';
 
 function SuwonPage({ onBack }) {
   return (
@@ -55,21 +57,21 @@ function SuwonPage({ onBack }) {
           <div className="suwon-mockup-wrapper">
             {/* 파란 장식 도형 1 (큰 것, 우상단) */}
             <img
-              src={`${BASE}details/suwon_sec2.png`}
+              src={suwonSec2}
               alt=""
               className="suwon-deco-img suwon-deco-img-1"
               aria-hidden="true"
             />
             {/* 파란 장식 도형 2 (작은 것, 하단) */}
             <img
-              src={`${BASE}details/suwon_sec3.png`}
+              src={suwonSec3}
               alt=""
               className="suwon-deco-img suwon-deco-img-2"
               aria-hidden="true"
             />
             {/* iPhone 목업 */}
             <img
-              src={`${BASE}details/suwon_cover_right.png`}
+              src={suwonCoverRight}
               alt="수원시립미술관 프로젝트 화면 목업"
               className="suwon-cover-img"
             />
@@ -83,7 +85,7 @@ function SuwonPage({ onBack }) {
           {/* 좌측 동영상 카드 */}
           <div className="suwon-sec2-video-wrapper">
             <video
-              src={`${BASE}details/suwon_01.mp4`}
+              src={suwonVideo}
               className="suwon-sec2-video"
               autoPlay
               loop
