@@ -93,7 +93,8 @@ function SuwonPage({ onBack }) {
               playsInline
             />
           </div>
-
+          {/* 우측 Notion 버튼 + 프로젝트 살펴보기 텍스트 */}
+          <div className="suwon-sec2-btn-group">
             <a
               href="https://www.figma.com/design/giv7zNQhUpbiHessc6bbFq/%EA%B3%B5%EA%B3%B5%EC%82%AC%EC%9D%B4%ED%8A%B8-%EA%B0%9C%EC%84%A0--%EC%95%88%ED%8B%B0%EA%B7%B8%EB%9E%98%EB%B9%84%ED%8B%B0-?"
               className="contact-github-btn reveal-item"
@@ -154,6 +155,8 @@ function SuwonPage({ onBack }) {
                 </div>
               </div>
             </a>
+            <p className="suwon-sec2-explore-text">프로젝트 살펴보기</p>
+          </div>
         </div>
       </section>
     </div>
