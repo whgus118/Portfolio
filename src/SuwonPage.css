@@ -22,38 +22,35 @@
     top: 48px;
     left: 48px;
     z-index: 200;
+    isolation: isolate;
 }
 
 .suwon-back-btn {
     display: flex;
     align-items: center;
     gap: 9px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(46, 46, 56, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 9999px;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.9);
     font-family: var(--font-primary);
     font-size: 0.88rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     padding: 11px 22px 11px 18px;
     cursor: pointer;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transform: translate3d(0, 0, 0);
-    will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .suwon-back-btn:hover {
-    background: rgba(255, 255, 255, 0.14);
+    background: rgba(62, 62, 74, 0.9);
     color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.25);
-    transform: scale(1.04) translate3d(0, 0, 0);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: scale(1.04);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* ──────────────────────────────────────────────────────
@@ -285,14 +282,15 @@
 
 /* 좌측 동영상 카드 */
 .suwon-sec2-video-wrapper {
-    flex: 1;
-    max-width: 830px;
+    width: 816px;
+    max-width: 65%;
     aspect-ratio: 830 / 467;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
     background-color: #0c0c0c;
     border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
 }
 
 .suwon-sec2-video {
@@ -302,18 +300,49 @@
     display: block;
 }
 
+/* 우측 버튼 그룹 (Notion 버튼 + 프로젝트 살펴보기 텍스트) */
+.suwon-sec2-btn-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    position: relative;
+    left: 25px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 /* contact-github-content 디자인 시스템 활용: Notion 버튼용 배치 보정 */
 .suwon-sec2-inner .contact-github-btn {
     position: relative;
-    left: -150px;
-    margin-right: 5%; /* 오른쪽 여백을 주어 비디오 카드와 균형 배치 */
+    left: 0;
+    margin: 0;
 }
 
-/* Notion 로고 크기 보정 (GitHub 대비 시각적 무게감을 맞추기 위해 추가 2% 축소) */
-.suwon-sec2-inner .contact-github-btn .github-logo-img {
-    width: 57.8% !important;
+/* 프로젝트 살펴보기 텍스트 */
+.suwon-sec2-explore-text {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    font-size: clamp(16px, 1.3vw, 20px);
+    color: #CDCDCD;
+    text-align: center;
+    margin: 0;
+    margin-top: 24px;
+    white-space: nowrap;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* 마우스 호버 시 Notion 버튼과 텍스트가 함께 부드럽게 확대 (간격 유지 보정) */
+.suwon-sec2-btn-group:hover .contact-github-content {
+    transform: scale(1.06) translate3d(0, 0, 0);
+}
+
+.suwon-sec2-btn-group:hover .suwon-sec2-explore-text {
+    transform: scale(1.06) translateY(8px) translate3d(0, 0, 0);
+}
 
 /* 반응형 설계 */
 @media (max-width: 1024px) {
@@ -333,18 +362,91 @@
         max-width: 100%;
     }
 
+    .suwon-sec2-btn-group {
+        left: 0;
+        margin: 0 auto;
+    }
+
     .suwon-sec2-inner .contact-github-btn {
         margin: 0 auto; /* 모바일/태블릿 중앙 정렬 */
     }
 }
 
-/* 프로젝트 살펴보기 텍스트 */
-.suwon-sec2-explore-text {
+/* =========================================
+   세 번째 섹션: 피그마 & 깃허브 2개 버튼 배치
+   ========================================= */
+.suwon-section-3 {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 680px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #181818 0%, #373A43 100%);
+    overflow: hidden;
+    padding: 0 7%;
+}
+
+.suwon-sec3-inner {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(60px, 12vw, 200px);
+}
+
+.suwon-sec3-btn-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.suwon-sec3-btn-card .contact-github-btn {
+    position: relative;
+    left: 0;
+    margin: 0;
+}
+
+.suwon-sec3-btn-label {
     font-family: 'Pretendard', sans-serif;
     font-weight: 600;
-    font-size: clamp(20px, 2.2vw, 32px);
+    font-size: clamp(16px, 1.3vw, 20px);
     color: #CDCDCD;
     text-align: center;
     margin: 0;
-    margin-top: 16px;
+    margin-top: 24px;
+    white-space: nowrap;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 호버 시 버튼과 텍스트가 함께 부드럽게 확대 (간격 유지 translateY(8px)) */
+.suwon-sec3-btn-card:hover .contact-github-content {
+    transform: scale(1.06) translate3d(0, 0, 0);
+}
+
+.suwon-sec3-btn-card:hover .suwon-sec3-btn-label {
+    transform: scale(1.06) translateY(8px) translate3d(0, 0, 0);
+}
+
+@media (max-width: 1024px) {
+    .suwon-section-3 {
+        height: auto;
+        min-height: auto;
+        padding: 100px 7%;
+    }
+
+    .suwon-sec3-inner {
+        flex-direction: column;
+        gap: 60px;
+    }
 }

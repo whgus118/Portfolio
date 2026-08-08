@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import SuwonPage from './SuwonPage';
+import LevitePage from './LevitePage';
+import MoodonPage from './MoodonPage';
 import './App.css';
 import backgroundPath from './assets/background.jpg';
 import memojiPath from './assets/memoji.png';
@@ -350,7 +352,7 @@ function MainPage({ onNavigate }) {
 
           {/* Card 2: 하이엔드 조명 레비테 */}
           <div className="reveal-item" style={{ '--reveal-delay': '0.38s' }}>
-            <div className="work-card">
+            <div className="work-card" onClick={() => onNavigate('levite')} style={{ cursor: 'pointer' }}>
               <h3 className="work-card-title">하이엔드 조명 레비테</h3>
               <div className="work-card-img-wrapper">
                 <img
@@ -368,7 +370,7 @@ function MainPage({ onNavigate }) {
 
           {/* Card 3: 무드온 AI 대시보드 */}
           <div className="reveal-item" style={{ '--reveal-delay': '0.53s' }}>
-            <div className="work-card">
+            <div className="work-card" onClick={() => onNavigate('moodon')} style={{ cursor: 'pointer' }}>
               <h3 className="work-card-title">무드온 AI 대시보드</h3>
               <div className="work-card-img-wrapper">
                 <img
@@ -493,6 +495,12 @@ function App() {
       <MainPage onNavigate={setActivePage} />
       {activePage === 'suwon' && (
         <SuwonPage onBack={() => setActivePage(null)} />
+      )}
+      {activePage === 'levite' && (
+        <LevitePage onBack={() => setActivePage(null)} />
+      )}
+      {activePage === 'moodon' && (
+        <MoodonPage onBack={() => setActivePage(null)} />
       )}
     </>
   );
