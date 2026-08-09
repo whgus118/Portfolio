@@ -13,6 +13,7 @@
     z-index: 100;
     font-family: var(--font-primary);
     scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
 }
 
 /* ──────────────────────────────────────────────────────
@@ -67,6 +68,7 @@
     background: transparent;
     overflow: hidden;
     padding: 0 0 0 7%; /* 오른쪽 여백을 0으로 설정하여 이미지가 화면 우측 끝에 완전히 닿도록 설정 */
+    scroll-snap-align: start;
 }
 
 /* ──────────────────────────────────────────────────────
@@ -193,6 +195,15 @@
    반응형
 ────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
+    .moodon-page {
+        scroll-snap-type: none;
+    }
+
+    .moodon-cover,
+    .moodon-section-2 {
+        scroll-snap-align: none;
+    }
+
     .moodon-cover {
         height: auto;
         min-height: auto;
@@ -239,6 +250,7 @@
     background: transparent;
     overflow: hidden;
     padding: 0 7%;
+    scroll-snap-align: start;
 }
 
 .moodon-sec2-inner {
@@ -253,5 +265,61 @@
 /* 레이블 색상만 라이트 테마에 맞게 오버라이드 */
 .moodon-btn-label {
     color: #373A43 !important;
+}
+
+/* ──────────────────────────────────────────────────────
+   7. 페이지 진입 애니메이션 (수원 페이지와 동일)
+────────────────────────────────────────────────────── */
+.moodon-page {
+    animation: moodonPageIn 0.3s ease-out forwards;
+}
+
+@keyframes moodonPageIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 개별 요소 순차적 페이드 업 효과 */
+.moodon-back-btn-wrapper,
+.moodon-cover-eyebrow,
+.moodon-cover-title,
+.moodon-cover-meta,
+.moodon-cover-right {
+    opacity: 0;
+    animation: moodonFadeUp 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: opacity, transform;
+}
+
+/* 개별 딜레이 오버라이딩 (단축 속성 선언 뒤에 와야 유효) */
+.moodon-back-btn-wrapper {
+    animation-delay: 0.1s;
+}
+
+.moodon-cover-eyebrow {
+    animation-delay: 0.25s;
+}
+
+.moodon-cover-title,
+.moodon-cover-right {
+    animation-delay: 0.4s;
+}
+
+.moodon-cover-meta {
+    animation-delay: 0.55s;
+}
+
+@keyframes moodonFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 

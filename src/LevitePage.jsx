@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import './LevitePage.css';
 import leviteCoverRight from './assets/levite_cover_right.png';
 import notionLogo from './assets/notion_logo_black.svg';
@@ -5,8 +6,44 @@ import githubLogo from './assets/github_logo_black.svg';
 import contactCursor from './assets/contact_cursor.png';
 
 function LevitePage({ onBack }) {
+  const pageRef = useRef(null);
+
+  // 스크롤 시 섹션 2 요소들이 부드럽게 떠오르는 인터랙션
+  useEffect(() => {
+    let observer;
+    const timer = setTimeout(() => {
+      const container = pageRef.current;
+      if (!container) return;
+      const revealSections = container.querySelectorAll('.scroll-reveal');
+      if (revealSections.length === 0) return;
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            } else {
+              entry.target.classList.remove('visible');
+            }
+          });
+        },
+        {
+          root: container,
+          threshold: 0.15,
+        }
+      );
+
+      revealSections.forEach((section) => observer.observe(section));
+    }, 150);
+
+    return () => {
+      clearTimeout(timer);
+      if (observer) observer.disconnect();
+    };
+  }, []);
+
   return (
-    <div className="levite-page">
+    <div className="levite-page" ref={pageRef}>
       {/* 뒤로가기 버튼 */}
       <div className="levite-back-btn-wrapper">
         <button className="levite-back-btn" onClick={onBack} aria-label="포트폴리오 목록으로 돌아가기">
@@ -65,13 +102,13 @@ function LevitePage({ onBack }) {
       </section>
 
       {/* 두 번째 섹션: 프로젝트 살펴보기(Notion) & 깃허브 바로가기 2개 버튼 */}
-      <section className="levite-section-2">
+      <section className="levite-section-2 scroll-reveal">
         <div className="levite-sec2-inner">
           {/* 1. 좌측 Notion 버튼 (프로젝트 살펴보기) */}
           <a
             href="https://app.notion.com/p/3a29c8547b57802da3c6d0167b3a1302?source=copy_link"
             className="levite-sec2-btn-card reveal-item"
-            style={{ '--reveal-delay': '0.2s' }}
+            style={{ '--reveal-delay': '0.15s' }}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="레비테 Notion 기획서 열기"

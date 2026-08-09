@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import './SuwonPage.css';
 import contactCursor from './assets/contact_cursor.png';
 import notionLogo from './assets/notion_logo.svg';
@@ -10,8 +11,44 @@ import figmaLogo from './assets/figma_logo.svg';
 import githubLogo from './assets/github_logo.png';
 
 function SuwonPage({ onBack }) {
+  const pageRef = useRef(null);
+
+  // 스크롤 시 섹션 2, 3 요소들이 부드럽게 떠오르는 인터랙션
+  useEffect(() => {
+    let observer;
+    const timer = setTimeout(() => {
+      const container = pageRef.current;
+      if (!container) return;
+      const revealSections = container.querySelectorAll('.scroll-reveal');
+      if (revealSections.length === 0) return;
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            } else {
+              entry.target.classList.remove('visible');
+            }
+          });
+        },
+        {
+          root: container,
+          threshold: 0.15,
+        }
+      );
+
+      revealSections.forEach((section) => observer.observe(section));
+    }, 150);
+
+    return () => {
+      clearTimeout(timer);
+      if (observer) observer.disconnect();
+    };
+  }, []);
+
   return (
-    <div className="suwon-page">
+    <div className="suwon-page" ref={pageRef}>
       {/* 뒤로가기 버튼 */}
       <div className="suwon-back-btn-wrapper">
         <button className="suwon-back-btn" onClick={onBack} aria-label="포트폴리오 목록으로 돌아가기">
@@ -83,10 +120,10 @@ function SuwonPage({ onBack }) {
       </section>
 
       {/* 두 번째 섹션: 프로젝트 개선 데모 및 Notion 기획서 버튼 */}
-      <section className="suwon-section-2">
+      <section className="suwon-section-2 scroll-reveal">
         <div className="suwon-sec2-inner">
           {/* 좌측 동영상 카드 */}
-          <div className="suwon-sec2-video-wrapper">
+          <div className="suwon-sec2-video-wrapper reveal-item" style={{ '--reveal-delay': '0.1s' }}>
             <video
               src={suwonVideo}
               className="suwon-sec2-video"
@@ -96,7 +133,6 @@ function SuwonPage({ onBack }) {
               playsInline
             />
           </div>
-          {/* 우측 Notion 버튼 + 프로젝트 살펴보기 텍스트 */}
           {/* 우측 Notion 버튼 + 프로젝트 살펴보기 텍스트 */}
           <a
             href="https://app.notion.com/p/UX-UI-3a29c8547b5780bf91b9cc502d1dee70?source=copy_link"
@@ -166,7 +202,7 @@ function SuwonPage({ onBack }) {
       </section>
 
       {/* 세 번째 섹션: 피그마 바로가기 & 깃허브 바로가기 2개 버튼 */}
-      <section className="suwon-section-3">
+      <section className="suwon-section-3 scroll-reveal">
         <div className="suwon-sec3-inner">
           {/* 1. 좌측 피그마 버튼 */}
           <a

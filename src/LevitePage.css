@@ -12,6 +12,7 @@
     z-index: 100;
     font-family: var(--font-primary);
     scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
 }
 
 /* ──────────────────────────────────────────────────────
@@ -66,6 +67,7 @@
     background-color: #FAFAFA;
     overflow: hidden;
     padding: 0 7% 0 7%;
+    scroll-snap-align: start;
 }
 
 /* ──────────────────────────────────────────────────────
@@ -205,6 +207,7 @@
     background-color: #FAFAFA;
     overflow: hidden;
     padding: 0 7%;
+    scroll-snap-align: start;
 }
 
 .levite-sec2-inner {
@@ -256,6 +259,15 @@
 
 /* 반응형 */
 @media (max-width: 1024px) {
+    .levite-page {
+        scroll-snap-type: none;
+    }
+
+    .levite-cover,
+    .levite-section-2 {
+        scroll-snap-align: none;
+    }
+
     .levite-cover {
         height: auto;
         min-height: auto;
@@ -285,5 +297,61 @@
     .levite-sec2-inner {
         flex-direction: column;
         gap: 60px;
+    }
+}
+
+/* ──────────────────────────────────────────────────────
+   7. 페이지 진입 애니메이션 (수원 페이지와 동일)
+────────────────────────────────────────────────────── */
+.levite-page {
+    animation: levitePageIn 0.3s ease-out forwards;
+}
+
+@keyframes levitePageIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 개별 요소 순차적 페이드 업 효과 */
+.levite-back-btn-wrapper,
+.levite-cover-eyebrow,
+.levite-cover-title,
+.levite-cover-meta,
+.levite-cover-right {
+    opacity: 0;
+    animation: leviteFadeUp 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: opacity, transform;
+}
+
+/* 개별 딜레이 오버라이딩 (단축 속성 선언 뒤에 와야 유효) */
+.levite-back-btn-wrapper {
+    animation-delay: 0.1s;
+}
+
+.levite-cover-eyebrow {
+    animation-delay: 0.25s;
+}
+
+.levite-cover-title,
+.levite-cover-right {
+    animation-delay: 0.4s;
+}
+
+.levite-cover-meta {
+    animation-delay: 0.55s;
+}
+
+@keyframes leviteFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
